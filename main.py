@@ -50,7 +50,8 @@ uart = UART(1, 115200, tx=25, rx=2)
 def loop():
     global current_value
     if uart.any():
-        val = uart.read()
+        # Only read one byte at a time so the number is only a single digit
+        val = uart.read(1)
         try:
             val = int(val)
         except ValueError:
